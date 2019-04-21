@@ -1,10 +1,15 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy] 
+  before_action :authenticate, except: [:index, :show]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+     respond_to do |format|
+      format.html # new.html.erb
+      format.xml {render :xml => @posts}
+    end
   end
 
   # GET /posts/1
@@ -15,6 +20,7 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     @post = Post.new
+   
   end
 
   # GET /posts/1/edit
